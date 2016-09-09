@@ -1,0 +1,34 @@
+; the next section is mandatory
+[general]
+name=PMAP Help
+description=Plugin to show PMAP Desktop IMS Help Menu
+
+version=1.0
+qgisMinimumVersion=2.0
+
+; not used yet, will allow to put a plugin in the right menu
+category=Layers
+
+author=Angga G. Pratama
+email=a.pratama@forestcarbon.com
+
+; end of mandatory metadata
+
+; start of optional metadata
+
+changelog=1.0 (20.06.2016) 
+    ...First version
+
+; tags are in comma separated value format, spaces are allowed
+tags=pmap, help, gui
+
+homepage=http://www.forestcarbon.com
+tracker=http://www.forestcarbon.com
+repository=http://www.forestcarbon.com
+
+
+; path to a icon within the plugin folder
+icon=icon_default.png
+
+experimental=False
+deprecated=False
