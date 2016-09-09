@@ -76,7 +76,7 @@ class PMAPTools:
     self.menu.addAction( self.show_about )
     
     # Add a custom toolbar
-    self.toolbar = self.iface.addToolBar( "PMAP Model" )
+    self.toolbar = self.iface.addToolBar( "PMAP Tools" )
     self.toolbar.addAction( self.show_about )
 
   def unload(self):
@@ -100,5 +100,6 @@ class PMAPTools:
       "Participatory Mapping and Planning (PMaP) atau Pemetaan dan Perencanaan Partisipatif merupakan bagian dari Proyek Kemakmuran Hijau yang bertujuan untuk merepresentasikan informasi spasial wilayah lokal yang mengkombinasikan teknologi kartografi modern dengan metode-metode partisipatif.", 
       QMessageBox.Ok )
 
+  # Show Attribute Table from Dock
   def callAttrEditor(self):
     self.iface.showAttributeTable( self.iface.activeLayer() )
