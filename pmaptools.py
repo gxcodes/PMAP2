@@ -38,7 +38,7 @@ class PMAPTools:
     self.dock = uic.loadUi( os.path.join( path, "pmapDock.ui" ) )
     self.iface.addDockWidget( Qt.RightDockWidgetArea, self.dock )
 
-    # self.dock.pushButton.clicked.connect( self.showAbout )
+    # Edit Attribute Button
     self.dock.editAttributeButton.clicked.connect( self.callAttrEditor )
 
     # Create KKP BPN Link

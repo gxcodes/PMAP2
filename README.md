@@ -14,4 +14,5 @@ QGIS plugin for PMAP2 Tools
 * Open QGIS and you should notice:
   * A new menu "PMAP Tools"
   * A new toolbar "PMAP Tools"
+  * A new dock "PMAP Tools"
   * A missing Help menu 
