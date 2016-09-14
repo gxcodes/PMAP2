@@ -56,15 +56,15 @@ class PMAPTools:
       "/bkpm.ico" ), "BKPM SPIPISE", self.iface.mainWindow() )
     QObject.connect( self.action_bkpm, SIGNAL("triggered()"), self.visitBkpm )
 
+    # Create Toggle Dock Button
+    self.toggle_dock = QAction( QIcon( os.path.dirname(os.path.realpath(__file__)) + 
+      "/map_marker.png" ), "Dock PMaP Tools", self.iface.mainWindow() )
+    QObject.connect( self.toggle_dock, SIGNAL("triggered()"), self.toggleDock )
+
     # Create About Dialog
     self.show_about = QAction( QIcon( os.path.dirname(os.path.realpath(__file__)) + 
       "/icon_default.png" ), "Tentang PMaP", self.iface.mainWindow() )
     QObject.connect( self.show_about, SIGNAL("triggered()"), self.showAbout )
-
-    # Create Toggle Dock Button
-    self.toggle_dock = QAction( QIcon( os.path.dirname(os.path.realpath(__file__)) + 
-      "/icon_default.png" ), "Dock PMaP", self.iface.mainWindow() )
-    QObject.connect( self.toggle_dock, SIGNAL("triggered()"), self.toggleDock )
 
     # Remove QGIS Help menu
     helpMenu = self.iface.helpMenu()
@@ -82,8 +82,8 @@ class PMAPTools:
     
     # Add a custom toolbar
     self.toolbar = self.iface.addToolBar( "PMAP Tools" )
-    self.toolbar.addAction( self.show_about )
     self.toolbar.addAction( self.toggle_dock )
+    self.toolbar.addAction( self.show_about )
 
   def unload(self):
     # Remove the plugin menu item and icon
