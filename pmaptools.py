@@ -61,6 +61,11 @@ class PMAPTools:
       "/icon_default.png" ), "Tentang PMaP", self.iface.mainWindow() )
     QObject.connect( self.show_about, SIGNAL("triggered()"), self.showAbout )
 
+    # Create Toggle Dock Button
+    self.toggle_dock = QAction( QIcon( os.path.dirname(os.path.realpath(__file__)) + 
+      "/icon_default.png" ), "Dock PMaP", self.iface.mainWindow() )
+    QObject.connect( self.toggle_dock, SIGNAL("triggered()"), self.toggleDock )
+
     # Remove QGIS Help menu
     helpMenu = self.iface.helpMenu()
     helpMenu.menuAction().setVisible( False )
@@ -78,6 +83,7 @@ class PMAPTools:
     # Add a custom toolbar
     self.toolbar = self.iface.addToolBar( "PMAP Tools" )
     self.toolbar.addAction( self.show_about )
+    self.toolbar.addAction( self.toggle_dock )
 
   def unload(self):
     # Remove the plugin menu item and icon
@@ -99,6 +105,15 @@ class PMAPTools:
       "Tentang PMaP", 
       "Participatory Mapping and Planning (PMaP) atau Pemetaan dan Perencanaan Partisipatif merupakan bagian dari Proyek Kemakmuran Hijau yang bertujuan untuk merepresentasikan informasi spasial wilayah lokal yang mengkombinasikan teknologi kartografi modern dengan metode-metode partisipatif.", 
       QMessageBox.Ok )
+
+  # Run method that performs all the real work
+  def toggleDock(self):
+    """Show or hide the dock widget."""
+    if self.dock.isVisible():
+      self.dock.setVisible(False)
+    else:
+      self.dock.setVisible(True)
+      self.dock.raise_()
 
   # Show Attribute Table from Dock
   def callAttrEditor(self):
