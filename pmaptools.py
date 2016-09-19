@@ -59,6 +59,8 @@ class PMAPTools:
     # Create Toggle Dock Button
     self.toggle_dock = QAction( QIcon( os.path.dirname(os.path.realpath(__file__)) + 
       "/map_marker.png" ), "Dock PMaP Tools", self.iface.mainWindow() )
+    self.toggle_dock.setCheckable(True)
+    self.toggle_dock.setChecked(True)
     QObject.connect( self.toggle_dock, SIGNAL("triggered()"), self.toggleDock )
 
     # Create About Dialog
@@ -89,6 +91,7 @@ class PMAPTools:
     # Remove the plugin menu item and icon
     self.menu.deleteLater()
     self.toolbar.deleteLater()
+    self.dock.deleteLater()
 
   # visit link methods
   def visitBPN(self):
@@ -117,4 +120,7 @@ class PMAPTools:
 
   # Show Attribute Table from Dock
   def callAttrEditor(self):
-    self.iface.showAttributeTable( self.iface.activeLayer() )
+    if self.iface.activeLayer():
+      self.iface.showAttributeTable( self.iface.activeLayer() )
+    else:
+      QMessageBox.information(None, 'Edit Attribute', 'Tidak ada layer aktif, pilih Layer terlebih dahulu!')
