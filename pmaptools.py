@@ -38,8 +38,9 @@ class PMAPTools:
     self.dock = uic.loadUi( os.path.join( path, "pmapDock.ui" ) )
     self.iface.addDockWidget( Qt.RightDockWidgetArea, self.dock )
 
-    # Edit Attribute Button
-    self.dock.editAttributeButton.clicked.connect( self.callAttrEditor )
+    # Load HTML Guides and buttons in the Dock
+    self.dock.webView.load( QUrl.fromLocalFile(os.path.join( path, "PMaPToolsDocs.html" )) )
+    self.dock.showAboutButton.clicked.connect( self.showAbout )
 
     # Create KKP BPN Link
     self.action_kkp = QAction( QIcon( os.path.dirname(os.path.realpath(__file__)) + 
@@ -117,10 +118,3 @@ class PMAPTools:
     else:
       self.dock.setVisible(True)
       self.dock.raise_()
-
-  # Show Attribute Table from Dock
-  def callAttrEditor(self):
-    if self.iface.activeLayer():
-      self.iface.showAttributeTable( self.iface.activeLayer() )
-    else:
-      QMessageBox.information(None, 'Edit Attribute', 'Tidak ada layer aktif, pilih Layer terlebih dahulu!')
