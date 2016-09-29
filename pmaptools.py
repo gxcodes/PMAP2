@@ -40,6 +40,11 @@ class PMAPTools:
 
     # Load HTML Guides and buttons in the Dock
     self.dock.webView.load( QUrl.fromLocalFile(os.path.join( path, "PMaPToolsDocs.html" )) )
+    
+    self.dock.webView.page().setLinkDelegationPolicy(self.dock.webView.page().DelegateExternalLinks)
+    def linkClicked(url): QDesktopServices.openUrl( QUrl( url ) )
+    self.dock.webView.connect(self.dock.webView, SIGNAL("linkClicked (const QUrl&)"), linkClicked)
+
     self.dock.showAboutButton.clicked.connect( self.showAbout )
 
     # Create KKP BPN Link
@@ -81,6 +86,7 @@ class PMAPTools:
     self.menu.addAction( self.action_inasafe )
     self.menu.addAction( self.action_bkpm )
     self.menu.addSeparator()
+    self.menu.addAction( self.toggle_dock )
     self.menu.addAction( self.show_about )
     
     # Add a custom toolbar
@@ -94,6 +100,7 @@ class PMAPTools:
     self.toolbar.deleteLater()
     self.dock.deleteLater()
 
+  # Run method that performs all the real work
   # visit link methods
   def visitBPN(self):
     QDesktopServices.openUrl( QUrl("http://kkp.bpn.go.id/") )
@@ -110,7 +117,6 @@ class PMAPTools:
       "Participatory Mapping and Planning (PMaP) atau Pemetaan dan Perencanaan Partisipatif merupakan bagian dari Proyek Kemakmuran Hijau yang bertujuan untuk merepresentasikan informasi spasial wilayah lokal yang mengkombinasikan teknologi kartografi modern dengan metode-metode partisipatif.", 
       QMessageBox.Ok )
 
-  # Run method that performs all the real work
   def toggleDock(self):
     """Show or hide the dock widget."""
     if self.dock.isVisible():
