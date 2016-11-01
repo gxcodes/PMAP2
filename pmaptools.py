@@ -41,21 +41,41 @@ class PMAPTools:
     # Load HTML Guides and buttons in the Dock
     self.dock.webView.load( QUrl.fromLocalFile(os.path.join( path, "PMaPToolsDocs.html" )) )
     
-    self.dock.webView.page().setLinkDelegationPolicy(self.dock.webView.page().DelegateExternalLinks)
+    self.dock.webView.page().setLinkDelegationPolicy(self.dock.webView.page().DelegateAllLinks)
     def linkClicked(url): QDesktopServices.openUrl( QUrl( url ) )
     self.dock.webView.connect(self.dock.webView, SIGNAL("linkClicked (const QUrl&)"), linkClicked)
 
     self.dock.showAboutButton.clicked.connect( self.showAbout )
 
+    # Create WebGIS Link
+    self.action_pmapwebgis = QAction( QIcon( os.path.dirname(os.path.realpath(__file__)) + 
+      "/dims.ico" ), "PMAP IMS WebGIS", self.iface.mainWindow() )
+    QObject.connect( self.action_pmapwebgis, SIGNAL("triggered()"), self.visitPMAPWebGIS )
+
+    # Create PMAP Forum Link
+    self.action_pmapforum = QAction( QIcon( os.path.dirname(os.path.realpath(__file__)) + 
+      "/browser.ico" ), "PMAP IMS Forum", self.iface.mainWindow() )
+    QObject.connect( self.action_pmapforum, SIGNAL("triggered()"), self.visitPMAPForum )
+
+    # Create InaSAFE Link
+    self.action_inasafe = QAction( QIcon( os.path.dirname(os.path.realpath(__file__)) + 
+      "/inasafe.ico" ), "InaSAFE Website", self.iface.mainWindow() )
+    QObject.connect( self.action_inasafe, SIGNAL("triggered()"), self.visitInasafe )
+
+    # Create InaSAFE Guide Link
+    self.action_inasafeguide = QAction( QIcon( os.path.dirname(os.path.realpath(__file__)) + 
+      "/inasafe.ico" ), "InaSAFE Training Guides", self.iface.mainWindow() )
+    QObject.connect( self.action_inasafeguide, SIGNAL("triggered()"), self.visitInasafeGuide )
+
+    # Create Qgis Guide Link
+    self.action_qgisguide = QAction( QIcon( os.path.dirname(os.path.realpath(__file__)) + 
+      "/qgis.ico" ), "QGIS 2.14 Documentation", self.iface.mainWindow() )
+    QObject.connect( self.action_qgisguide, SIGNAL("triggered()"), self.visitQgisGuide )
+
     # Create KKP BPN Link
     self.action_kkp = QAction( QIcon( os.path.dirname(os.path.realpath(__file__)) + 
       "/kkp.ico" ), "KKP BPN Pusat", self.iface.mainWindow() )
     QObject.connect( self.action_kkp, SIGNAL("triggered()"), self.visitBPN )
-
-    # Create InaSAFE Link
-    self.action_inasafe = QAction( QIcon( os.path.dirname(os.path.realpath(__file__)) + 
-      "/inasafe.ico" ), "InaSAFE BNPB", self.iface.mainWindow() )
-    QObject.connect( self.action_inasafe, SIGNAL("triggered()"), self.visitInasafe )
 
     # Create BKPM Link
     self.action_bkpm = QAction( QIcon( os.path.dirname(os.path.realpath(__file__)) + 
@@ -82,8 +102,13 @@ class PMAPTools:
     self.menu = QMenu( "&PMaP Tools", self.iface.mainWindow().menuBar() )
     self.iface.mainWindow().menuBar().addMenu( self.menu )
     # Add sub-menus
-    self.menu.addAction( self.action_kkp )
+    self.menu.addAction( self.action_pmapwebgis )
+    self.menu.addAction( self.action_pmapforum )
     self.menu.addAction( self.action_inasafe )
+    self.menu.addAction( self.action_inasafeguide )
+    self.menu.addAction( self.action_qgisguide )
+    self.menu.addSeparator()
+    self.menu.addAction( self.action_kkp )
     self.menu.addAction( self.action_bkpm )
     self.menu.addSeparator()
     self.menu.addAction( self.toggle_dock )
@@ -102,11 +127,23 @@ class PMAPTools:
 
   # Run method that performs all the real work
   # visit link methods
-  def visitBPN(self):
-    QDesktopServices.openUrl( QUrl("http://kkp.bpn.go.id/") )
+  def visitPMAPWebGIS(self):
+    QDesktopServices.openUrl( QUrl("http://128.199.249.138/") )
+
+  def visitPMAPForum(self):
+    QDesktopServices.openUrl( QUrl("https://groups.google.com/forum/#!forum/pmap-ims") )
 
   def visitInasafe(self):
     QDesktopServices.openUrl( QUrl("http://inasafe.org/") )
+
+  def visitInasafeGuide(self):
+    QDesktopServices.openUrl( QUrl("http://docs.inasafe.org/id/index.html") )
+
+  def visitQgisGuide(self):
+    QDesktopServices.openUrl( QUrl("http://docs.qgis.org/2.14/id/docs/index.html") )
+
+  def visitBPN(self):
+    QDesktopServices.openUrl( QUrl("http://kkp.bpn.go.id/") )
 
   def visitBkpm(self):
     QDesktopServices.openUrl( QUrl("https://online-spipise.bkpm.go.id/") )
